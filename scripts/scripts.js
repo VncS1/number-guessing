@@ -5,6 +5,8 @@ const modal = Modal()
 const tips = document.querySelector('.tips')
 const numberGuess = document.querySelector('.num-field')
 const guessButton = document.querySelector('.guess-button')
+const correctNumber = document.querySelector('.correct-number')
+const scoreText = document.querySelector('.final-score')
 
 const getRandomNumber = (min, max) => {
     min = Math.ceil(min);
@@ -30,14 +32,11 @@ console.log(numberToGuess)
 
 
 const correctGuess = (numberGuess, numberToGuess) => {
-    let correct
     if (numberGuess == numberToGuess) {
-        correct = true
+        return true
     } else {
-        correct = false
+        return false
     }
-
-    return correct
 }
 
 const createTip = (tip) => {
@@ -48,20 +47,52 @@ const createTip = (tip) => {
     tips.appendChild(newTip)
 }
 
+const checkGuessNumber = (guessCount) => {
+    if(guessCount < 11){
+        return true
+    } else if(guessCount == 10){
+        return false
+    } 
+}
+
 let guessCount = 1
+let score = 100
+
+const calcScore = (score) => {
+    let i = 1
+    while(i < guessCount){
+
+        score -= 10
+
+        i++
+
+        console.log(score)
+    }
+
+    return score
+}
 
 const tipsToHelp = (numberGuess, numberToGuess) => {
 
-    if (correctGuess(numberGuess, numberToGuess)) {
+    if (correctGuess(numberGuess, numberToGuess) && checkGuessNumber(guessCount)) {
         const text = `Parabéns! O número era ${numberToGuess}`
+        const finalScoreText = `Sua pontuação final é ${calcScore(score)}`
 
+        correctNumber.innerHTML = text
+        scoreText.innerHTML = finalScoreText
 
         modal.open()
 
-        // createTip(text)
+    } else if(!checkGuessNumber(guessCount)){
+        const text = `Você perdeu! O numero era ${numberToGuess}`
+        const finalScoreText = `Sua pontuação final é ${calcScore(score)}`
 
-        // guessCount++;
-    } else if (guessCount == 3) {
+        correctNumber.innerHTML = text
+        scoreText.innerHTML = finalScoreText
+
+        modal.open()
+
+    }else if (guessCount == 3) {
         const text = numberType(numberToGuess) ? `Dica ${guessCount}: Número é ímpar` : `Dica numero ${guessCount}: Número é par`
 
         createTip(text)

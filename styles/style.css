@@ -31,6 +31,11 @@ main .title {
 
     font-size: 2rem;
 }
+main .subtitle {
+    margin-bottom: .75rem;
+
+    font-size: 1rem;
+}
 
 main .tips {
     margin-bottom: .75rem;
@@ -103,6 +108,11 @@ form .guess-button {
 }
 
 .modal .correct-number {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.modal .final-score {
     font-size: 1.5rem;
     margin-bottom: 2rem;
 }
